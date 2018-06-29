@@ -235,11 +235,16 @@ void cg(TAC *tl)
     TAC *tls = init_cg(tl);              /* Start of TAC */
     build_symb_tab(tls);
 
+    cg_sys( LIB_DIR "header" );
     for (; tls != NULL; tls = tls->next)  /* Instructions in turn */
     {
+        printf ("\\ ");
         print_instr(tls);
+        cg_instr( tls );
     }
 
+    cg_sys( LIB_DIR "lib");
+    cg_strings() ;
 }       /* void  cg( TAC *tl ) */
 
 

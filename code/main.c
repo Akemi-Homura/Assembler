@@ -676,8 +676,7 @@ void  print_instr( TAC *i )
                 break ;
 
         case TAC_LABEL:
-
-                printf( "\nL%d:\n", i->VA->VAL1 ) ;
+                printf( "label L%d\n", i->VA->VAL1 ) ;
                 break ;
 
         case TAC_VAR:
