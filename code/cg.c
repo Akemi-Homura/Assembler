@@ -145,8 +145,10 @@ void find_var_in_expression(SYMB **var) {
     SYMB *t;
     if ((*var)->type == T_INT || (*var)->type == T_VAR) return;
     if((*var)->type == T_TEXT){
-        if((t = lookup((*var)->TEXT1,symbtab))!=NULL){
+        if((t = lookup((*var)->TEXT1,strtab))!=NULL){
             (*var) = t;
+        }else{
+            insert((*var),strtab);
         }
         return;
     }
@@ -621,7 +623,7 @@ void cg_strings(void)
     {
         SYMB *sl;
 
-        for (sl = symbtab[i]; sl != NULL; sl = sl->next)
+        for (sl = strtab[i]; sl != NULL; sl = sl->next)
             if (sl->type == T_TEXT)
                 cg_str(sl);
 

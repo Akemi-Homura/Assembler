@@ -65,6 +65,7 @@ extern TAC *program_tac ;
 
 SYMB  *symbtab[HASHSIZE] ;               /* Symbol table */
 SYMB  *local_symbtab[HASHSIZE] ;
+SYMB  *strtab[HASHSIZE] ;
 TAC   *library[LIB_MAX] ;                /* Entries for library routines */
 int    next_tmp ;                        /* Count of temporaries */
 int    next_label ;                      /* Count of labels */
@@ -182,6 +183,9 @@ void  init_vc( int   argc,
 
         for( i = 0 ; i < HASHSIZE ; i++ )    /* Clear symbol table */
                 symbtab[i] = NULL ;
+
+        for( i = 0 ; i < HASHSIZE ; i++ )
+                strtab[i] = NULL ;
 
         for( i = 0 ; i < CONST_MAX ; i++ )   /* Make constants */
         {
