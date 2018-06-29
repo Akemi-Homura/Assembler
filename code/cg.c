@@ -143,7 +143,13 @@ void find_var_in_expression(SYMB **var);
 
 void find_var_in_expression(SYMB **var) {
     SYMB *t;
-    if ((*var)->type == T_INT || (*var)->type == T_VAR || (*var)->type == T_TEXT) return;
+    if ((*var)->type == T_INT || (*var)->type == T_VAR) return;
+    if((*var)->type == T_TEXT){
+        if((t = lookup((*var)->TEXT1,symbtab))!=NULL){
+            (*var) = t;
+        }
+        return;
+    }
     if ((t = lookup((*var)->TEXT1, local_symbtab)) == NULL) {
         if ((t = lookup((*var)->TEXT1, symbtab)) == NULL) {
             fprintf(stderr, "variable %s has not declared in expression\n", (*var)->TEXT1);
