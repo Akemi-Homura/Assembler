@@ -1,0 +1,29 @@
+VAR i
+VAR j
+VAR k
+VAR r
+VAR e
+FUNC  main()
+{
+    VAR i
+    VAR j
+    j := 1
+    i := 0
+
+    WHILE 11 - i
+    DO
+    {
+        PRINT "f( ", i, " ) = ", f( i ), "\n"
+        i := i + 1
+    }
+    DONE
+}
+
+FUNC  f( n )
+    IF n
+    THEN
+        RETURN n * f( n - 1 )
+    ELSE
+        RETURN 1
+    FI
+

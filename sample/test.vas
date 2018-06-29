@@ -1,0 +1,57 @@
+       var i
+       var j
+       var k
+       var r
+       var e
+       
+L15:
+       beginfunc
+       var i
+       var j
+       j := 1
+       i := 0
+       
+L13:
+       var T0
+       T0 := 11 - i
+       ifz T0 goto L14
+       arg L10
+       call L4
+       arg i
+       call L2
+       arg L11
+       call L4
+       var T1
+       arg i
+       T1 = call L18
+       arg T1
+       call L2
+       arg L12
+       call L4
+       var T2
+       T2 := i + 1
+       i := T2
+       goto L13
+       
+L14:
+       endfunc
+       
+L18:
+       beginfunc
+       var n
+       ifz n goto L16
+       var T4
+       var T3
+       T3 := n - 1
+       arg T3
+       T4 = call L18
+       var T5
+       T5 := n * T4
+       return T5
+       goto L17
+       
+L16:
+       return 1
+       
+L17:
+       endfunc
