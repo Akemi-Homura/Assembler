@@ -11,149 +11,18 @@
        STI  R1,0(R1)                     \ Save on stack
        LDA  L1,R3                        \ Return address for main routine
 \
-\        var i
-\        var j
-\        var k
-\        var e
-\        label L16
-L16:
+\        label L11
+L11:
 \        beginfunc
        STI  R3,4(R1)
-\        var i
-\        i := 0
-       LDR  R0,R5
-\        j := 1
-       LDA  1(R0),R6
-\        label L13
-       STI  R5,8(R1)
-       STI  R6,12(R1)
-L13:
-\        var T0
-\        T0 := 11 - i
-       LDI  8(R1),R5
-       LDA  11(R0),R6
-       SUB  R6,R5
-\        ifz T0 goto L14
-       STI  R5,12(R1)
-       LDR  R5,R5
-       BZE  L14
 \        arg L10
-       LDA  L10,R7
-       STI  R7,24(R1)
-\        call L4
-       LDA  L4,R2
-       STI  R1,16(R1)
-       LDA  16(R1),R1
-       BAL  R2,R3
-\        arg i
-       LDI  8(R1),R5
-       STI  R5,24(R1)
-\        call L2
-       LDA  L2,R2
-       STI  R1,16(R1)
-       LDA  16(R1),R1
-       BAL  R2,R3
-\        arg L11
-       LDA  L11,R5
-       STI  R5,24(R1)
-\        call L4
-       LDA  L4,R2
-       STI  R1,16(R1)
-       LDA  16(R1),R1
-       BAL  R2,R3
-\        var T1
-\        arg i
-       LDI  8(R1),R5
-       STI  R5,28(R1)
-\        T1 = call L19
-       LDA  L19,R2
-       STI  R1,20(R1)
-       LDA  20(R1),R1
-       BAL  R2,R3
-\        arg T1
-       LDR  R4,R5
-       STI  R5,28(R1)
-\        call L2
+       LDA  L10,R5
        STI  R5,16(R1)
-       LDA  L2,R2
-       STI  R1,20(R1)
-       LDA  20(R1),R1
-       BAL  R2,R3
-\        arg L12
-       LDA  L12,R5
-       STI  R5,28(R1)
 \        call L4
        LDA  L4,R2
-       STI  R1,20(R1)
-       LDA  20(R1),R1
+       STI  R1,8(R1)
+       LDA  8(R1),R1
        BAL  R2,R3
-\        var T2
-\        T2 := i + 1
-       LDA  1(R0),R5
-       LDI  8(R1),R6
-       ADD  R6,R5
-\        i := T2
-       STI  R5,20(R1)
-\        goto L13
-       STI  R5,8(R1)
-       BRA  L13
-\        label L14
-L14:
-\        arg L15
-       LDA  L15,R5
-       STI  R5,32(R1)
-\        call L4
-       LDA  L4,R2
-       STI  R1,24(R1)
-       LDA  24(R1),R1
-       BAL  R2,R3
-\        endfunc
-       LDI  4(R1),R2
-       LDI  0(R1),R1
-       BAL  R2,R3
-\        label L19
-L19:
-\        beginfunc
-       STI  R3,4(R1)
-\        var n
-\        ifz n goto L17
-       LDI  8(R1),R5
-       BZE  L17
-\        var T4
-\        var T3
-\        T3 := n - 1
-       LDA  1(R0),R6
-       SUB  R5,R6
-\        arg T3
-       STI  R6,16(R1)
-       STI  R6,28(R1)
-\        T4 = call L19
-       LDA  L19,R2
-       STI  R1,20(R1)
-       LDA  20(R1),R1
-       BAL  R2,R3
-\        var T5
-\        T5 := n * T4
-       LDR  R4,R5
-       LDI  8(R1),R6
-       MUL  R6,R5
-\        return T5
-       STI  R4,12(R1)
-       LDR  R5,R4
-       LDI  4(R1),R2
-       LDI  0(R1),R1
-       BAL  R2,R3
-\        goto L18
-       BRA  L18
-\        label L17
-L17:
-\        return 1
-       LDA  1(R0),R4
-       LDI  4(R1),R2
-       LDI  0(R1),R1
-       BAL  R2,R3
-\        label L18
-L18:
 \        endfunc
        LDI  4(R1),R2
        LDI  0(R1),R1
@@ -220,29 +89,17 @@ L6:
        BAL  R2,R3                        \ Return
 \
 L10:
-       DB   102
-       DB   40
-       DB   32
-       DB   0
-L11:
-       DB   32
-       DB   41
-       DB   32
-       DB   61
-       DB   32
-       DB   0
-L12:
-       DB   10
-       DB   0
-L15:
-       DB   115
-       DB   117
-       DB   99
-       DB   99
+       DB   72
        DB   101
-       DB   115
-       DB   115
-       DB   33
+       DB   108
+       DB   108
+       DB   111
+       DB   32
+       DB   87
+       DB   111
+       DB   114
+       DB   108
+       DB   100
        DB   10
        DB   0
 L0:
