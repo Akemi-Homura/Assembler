@@ -103,6 +103,8 @@
 
 #define  FLAG_GLOBAL 0
 #define  FLAG_LOCAL  1
+#define  FLAG_FIRST_FUNC 1
+#define  FLAG_NOT_FIRST_FUNC 0
 
 /* Many of the structures we are to use have complex unions and subfields.
    Specifying which field we are want can be verbose and for convenience we
