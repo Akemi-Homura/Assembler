@@ -82,6 +82,7 @@ struct                                   /* Reg descriptor */
 } rdesc[R_MAX];
 int tos;                               /* Top of stack */
 int glo_off;
+int first_func_flag;
 int next_arg;                          /* Next argument to load */
 
 /* These are the prototypes of routines defined here. Routines to translate TAC
@@ -290,8 +291,8 @@ TAC *init_cg(TAC *tl)
 
     insert_desc(0, mkconst(0), UNMODIFIED);     /* R0 holds 0 */
 
-    tos = VAR_OFF;             /* TOS allows space for link info */
-    glo_off = 0;
+    glo_off = tos = VAR_OFF;             /* TOS allows space for link info */
+    first_func_flag = FLAG_FIRST_FUNC;
     next_arg = 0;                   /* Next arg to load */
 
     /* Tidy up and reverse the code list */
@@ -415,13 +416,16 @@ void cg_instr(TAC *c)
                information. */
             tos = VAR_OFF;
             printf("       STI  R%u,%u(R%u)\n", R_RET, PC_OFF, R_P);
+            if(first_func_flag == FLAG_FIRST_FUNC){
+                first_func_flag = FLAG_NOT_FIRST_FUNC;
+                tos = glo_off;
+            }
             return;
 
         case TAC_ENDFUNC:
 
             /* At the end of the function we put in an implicit return
                instruction. */
-
             cg_return(NULL);
             return;
 
