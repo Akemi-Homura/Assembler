@@ -50,7 +50,8 @@
 #define R_CALL          2                /* Address of called routine */
 #define R_RET           3                /* Return address */
 #define R_RES           4                /* Result reg and last reserved */
-#define R_GEN           5                /* First general purpose register */
+#define R_GLO           5                /* 全局变量寄存器  */
+#define R_GEN           6                /* First general purpose register */
 #define R_MAX          16                /* 16 regs */
 
 /* The stack frame holds the dynamic link at offset zero and the return address
@@ -80,6 +81,7 @@ struct                                   /* Reg descriptor */
     int modified;          /* If needs spilling */
 } rdesc[R_MAX];
 int tos;                               /* Top of stack */
+int glo_off;
 int next_arg;                          /* Next argument to load */
 
 /* These are the prototypes of routines defined here. Routines to translate TAC
@@ -140,6 +142,24 @@ int get_areg(SYMB *b,
 void build_symb_tab(TAC *tl);
 
 void find_var_in_expression(SYMB **var);
+
+int is_global_var(SYMB* var);
+
+int is_global_var(SYMB* var){
+    SYMB* t;
+    if((t = lookup(var->TEXT1,local_symbtab)) != NULL){
+        if( t == var){
+            return FLAG_LOCAL;
+        }
+    }
+    if((t = lookup(var->TEXT1,symbtab)) != NULL){
+        if( t == var){
+            return FLAG_GLOBAL;
+        }
+    }
+    fprintf(stderr,"Variable %s is not in symbtab!\n",var->TEXT1);
+    return -1;
+}
 
 void find_var_in_expression(SYMB **var) {
     SYMB *t;
@@ -277,6 +297,7 @@ TAC *init_cg(TAC *tl)
     insert_desc(0, mkconst(0), UNMODIFIED);     /* R0 holds 0 */
 
     tos = VAR_OFF;             /* TOS allows space for link info */
+    glo_off = 0;
     next_arg = 0;                   /* Next arg to load */
 
     /* Tidy up and reverse the code list */
@@ -383,9 +404,13 @@ void cg_instr(TAC *c)
 
             /* Allocate 4 bytes for this variable to hold an integer on the
                current top of stack */
-
-            c->VA->ADDR2 = tos;
-            tos += 4;
+            if(is_global_var(c->VA) == FLAG_LOCAL) {
+                c->VA->ADDR2 = tos;
+                tos += 4;
+            }else if(is_global_var(c->VA) == FLAG_GLOBAL){
+                c->VA->ADDR2 = glo_off;
+                glo_off += 4;
+            }
             return;
 
         case TAC_BEGINFUNC:
@@ -394,7 +419,6 @@ void cg_instr(TAC *c)
                which will be in R_RET onto the stack. We reset the top of
                stack, since it is currently empty apart from the link
                information. */
-
             tos = VAR_OFF;
             printf("       STI  R%u,%u(R%u)\n", R_RET, PC_OFF, R_P);
             return;
@@ -521,7 +545,6 @@ void cg_arg(SYMB *a)
 
 {
     int r = get_rreg(a);
-
     printf("       STI  R%u,%u(R%u)\n", r, tos + VAR_OFF + next_arg,
            R_P);
     next_arg += 4;
@@ -714,8 +737,12 @@ void spill_one(int r)
 
 {
     if ((rdesc[r].name != NULL) && rdesc[r].modified) {
+        int res_stack = R_P;
+        if(is_global_var(rdesc[r].name) == FLAG_GLOBAL){
+            res_stack = R_GLO;
+        }
         printf("       STI  R%u,%u(R%u)\n", r, rdesc[r].name->ADDR2,
-               R_P);
+               res_stack);
         rdesc[r].modified = UNMODIFIED;
     }
 
@@ -745,7 +772,7 @@ void load_reg(int r,                 /* Register to be loaded */
         }
 
     /* Not in a reg. Load appropriately */
-
+    int res_var = R_P;
     switch (n->type) {
         case T_INT:
 
@@ -753,8 +780,10 @@ void load_reg(int r,                 /* Register to be loaded */
             break;
 
         case T_VAR:
-
-            printf("       LDI  %u(R%u),R%u\n", n->ADDR2, R_P, r);
+            if(is_global_var(n) == FLAG_GLOBAL){
+                res_var = R_GLO;
+            }
+            printf("       LDI  %u(R%u),R%u\n", n->ADDR2, res_var, r);
             break;
 
         case T_TEXT:
