@@ -205,6 +205,7 @@ void build_symb_tab(TAC *tl) {
                     }
                 }
                 tls->VA = a;
+                find_var_in_expression(&tls->VB);
                 break;
             case TAC_ARG:
                 find_var_in_expression(&tls->VA);
@@ -212,7 +213,9 @@ void build_symb_tab(TAC *tl) {
             case TAC_IFZ:
                 find_var_in_expression(&tls->VB);
                 break;
-
+            case TAC_RETURN:
+                find_var_in_expression(&tls->VA);
+                break;
             case TAC_UNDEF:
                 error("undefined tac\n");
                 exit(-1);
