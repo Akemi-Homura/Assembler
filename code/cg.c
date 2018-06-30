@@ -50,9 +50,9 @@
 #define R_CALL          2                /* Address of called routine */
 #define R_RET           3                /* Return address */
 #define R_RES           4                /* Result reg and last reserved */
-#define R_GLO           5                /* 全局变量寄存器  */
+#define R_GLO           15                /* 全局变量寄存器  */
 #define R_GEN           6                /* First general purpose register */
-#define R_MAX          16                /* 16 regs */
+#define R_MAX          15                /* 16 regs */
 
 /* The stack frame holds the dynamic link at offset zero and the return address
    at offset 4. */
