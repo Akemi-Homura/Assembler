@@ -288,8 +288,7 @@ TAC *init_cg(TAC *tl)
 
     insert_desc(0, mkconst(0), UNMODIFIED);     /* R0 holds 0 */
 
-    tos = VAR_OFF;             /* TOS allows space for link info */
-    glo_off = 4;
+    glo_off = tos = VAR_OFF;             /* TOS allows space for link info */
     first_func_flag = FLAG_FIRST_FUNC;
     next_arg = 0;                   /* Next arg to load */
 
@@ -416,7 +415,7 @@ void cg_instr(TAC *c)
             printf("       STI  R%u,%u(R%u)\n", R_RET, PC_OFF, R_P);
             if(first_func_flag == FLAG_FIRST_FUNC){
                 first_func_flag = FLAG_NOT_FIRST_FUNC;
-                tos += glo_off;
+                tos = glo_off;
             }
             return;
 
