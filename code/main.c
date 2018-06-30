@@ -52,7 +52,7 @@
    the library routines. */
 
 #define CONST_MAX  5
-#define LAB_MIN   10
+#define LAB_MIN   11
 
 /* This is the global variable that will be set on recognition of the sentence
    symbol, <program>, by the parser. We can't make use of "yyval", since that
