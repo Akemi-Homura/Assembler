@@ -147,18 +147,12 @@ int is_global_var(SYMB* var);
 
 int is_global_var(SYMB* var){
     SYMB* t;
-    if((t = lookup(var->TEXT1,local_symbtab)) != NULL){
-        if( t == var){
-            return FLAG_LOCAL;
-        }
-    }
     if((t = lookup(var->TEXT1,symbtab)) != NULL){
         if( t == var){
             return FLAG_GLOBAL;
         }
     }
-    fprintf(stderr,"Variable %s is not in symbtab!\n",var->TEXT1);
-    return -1;
+    return FLAG_LOCAL;
 }
 
 void find_var_in_expression(SYMB **var) {
