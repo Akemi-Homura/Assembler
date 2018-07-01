@@ -1,5 +1,21 @@
+VAR a
 FUNC  main()
 {
-    PRINT "Hello World\n"
-	CONTINUE
+    a := 1100
+    PRINT "f=",f(),"\n"
+    PRINT "g=",g(),"\n"
+}
+
+FUNC f()
+{
+    PRINT "In f: a=",a,"\n"
+    RETURN a
+}
+
+FUNC g()
+{
+    VAR a
+    a := 20
+    PRINT "In g: g=",a,"\n"
+    RETURN a
 }

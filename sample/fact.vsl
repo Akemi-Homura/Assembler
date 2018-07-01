@@ -1,15 +1,17 @@
+// A VSL program to print out factorials up
+// to 10!
 VAR i
 VAR j
-VAR k
-VAR e
-VAR eawra
-VAR etawtwet
-VAR etqwtwywy
+
 FUNC  main()
+
+// Main program loops through calling the
+// factorial function, and printing the result
+
 {
-    VAR i
-    i := 0
+
     j := 1
+    i := 0
 
     WHILE 11 - i
     DO
@@ -20,11 +22,14 @@ FUNC  main()
     DONE
 }
 
+
 FUNC  f( n )
+
+// Factorial defined recursively
+
     IF n
     THEN
         RETURN n * f( n - 1 )
     ELSE
         RETURN 1
     FI
-

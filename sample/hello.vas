@@ -1,27 +1,154 @@
-\
-\      Standard prolog
-\
-\      Modifications:
-\      ==============
-\
-\      26 Jan 96: Jeremy Bennett. Version for 2nd editon publication (unchanged
-\                 from first edition.
-\
        LDA  L0,R1                        \ Set stack pointer
+       LDA  L0,R5
        STI  R1,0(R1)                     \ Save on stack
        LDA  L1,R3                        \ Return address for main routine
-\
-\        label L11
-L11:
+\        var a
+\        label L15
+L15:
 \        beginfunc
        STI  R3,4(R1)
-\        arg L10
-       LDA  L10,R5
-       STI  R5,16(R1)
+\        a := 1100
+       LDA  1100(R0),R6
+\        arg L11
+       LDA  L11,R7
+       STI  R7,20(R1)
+\        call L4
+       STI  R6,8(R15)
+       LDA  L4,R2
+       STI  R1,12(R1)
+       LDA  12(R1),R1
+       BAL  R2,R3
+\        var T0
+\        T0 = call L18
+       LDA  L18,R2
+       STI  R1,16(R1)
+       LDA  16(R1),R1
+       BAL  R2,R3
+\        arg T0
+       LDR  R4,R6
+       STI  R6,24(R1)
+\        call L2
+       STI  R6,12(R1)
+       LDA  L2,R2
+       STI  R1,16(R1)
+       LDA  16(R1),R1
+       BAL  R2,R3
+\        arg L12
+       LDA  L12,R6
+       STI  R6,24(R1)
+\        call L4
+       LDA  L4,R2
+       STI  R1,16(R1)
+       LDA  16(R1),R1
+       BAL  R2,R3
+\        arg L13
+       LDA  L13,R6
+       STI  R6,24(R1)
+\        call L4
+       LDA  L4,R2
+       STI  R1,16(R1)
+       LDA  16(R1),R1
+       BAL  R2,R3
+\        var T1
+\        T1 = call L21
+       LDA  L21,R2
+       STI  R1,20(R1)
+       LDA  20(R1),R1
+       BAL  R2,R3
+\        arg T1
+       LDR  R4,R6
+       STI  R6,28(R1)
+\        call L2
+       STI  R6,16(R1)
+       LDA  L2,R2
+       STI  R1,20(R1)
+       LDA  20(R1),R1
+       BAL  R2,R3
+\        arg L12
+       LDA  L12,R6
+       STI  R6,28(R1)
+\        call L4
+       LDA  L4,R2
+       STI  R1,20(R1)
+       LDA  20(R1),R1
+       BAL  R2,R3
+\        endfunc
+       LDI  4(R1),R2
+       LDI  0(R1),R1
+       BAL  R2,R3
+\        label L18
+L18:
+\        beginfunc
+       STI  R3,4(R1)
+\        arg L16
+       LDA  L16,R6
+       STI  R6,16(R1)
 \        call L4
        LDA  L4,R2
        STI  R1,8(R1)
        LDA  8(R1),R1
+       BAL  R2,R3
+\        arg a
+       LDI  8(R15),R6
+       STI  R6,16(R1)
+\        call L2
+       LDA  L2,R2
+       STI  R1,8(R1)
+       LDA  8(R1),R1
+       BAL  R2,R3
+\        arg L12
+       LDA  L12,R6
+       STI  R6,16(R1)
+\        call L4
+       LDA  L4,R2
+       STI  R1,8(R1)
+       LDA  8(R1),R1
+       BAL  R2,R3
+\        return a
+       LDI  8(R15),R4
+       LDI  4(R1),R2
+       LDI  0(R1),R1
+       BAL  R2,R3
+\        endfunc
+       LDI  4(R1),R2
+       LDI  0(R1),R1
+       BAL  R2,R3
+\        label L21
+L21:
+\        beginfunc
+       STI  R3,4(R1)
+\        var a
+\        a := 20
+       LDA  20(R0),R6
+\        arg L19
+       LDA  L19,R7
+       STI  R7,20(R1)
+\        call L4
+       STI  R6,8(R1)
+       LDA  L4,R2
+       STI  R1,12(R1)
+       LDA  12(R1),R1
+       BAL  R2,R3
+\        arg a
+       LDI  8(R1),R6
+       STI  R6,20(R1)
+\        call L2
+       LDA  L2,R2
+       STI  R1,12(R1)
+       LDA  12(R1),R1
+       BAL  R2,R3
+\        arg L12
+       LDA  L12,R6
+       STI  R6,20(R1)
+\        call L4
+       LDA  L4,R2
+       STI  R1,12(R1)
+       LDA  12(R1),R1
+       BAL  R2,R3
+\        return a
+       LDI  8(R1),R4
+       LDI  4(R1),R2
+       LDI  0(R1),R1
        BAL  R2,R3
 \        endfunc
        LDI  4(R1),R2
@@ -88,18 +215,35 @@ L6:
        LDI  0(R1),R1                     \ Restore stack pointer
        BAL  R2,R3                        \ Return
 \
-L10:
-       DB   72
-       DB   101
-       DB   108
-       DB   108
-       DB   111
+L13:
+       DB   103
+       DB   61
+       DB   0
+L19:
+       DB   73
+       DB   110
        DB   32
-       DB   87
-       DB   111
-       DB   114
-       DB   108
-       DB   100
+       DB   103
+       DB   58
+       DB   32
+       DB   103
+       DB   61
+       DB   0
+L16:
+       DB   73
+       DB   110
+       DB   32
+       DB   102
+       DB   58
+       DB   32
+       DB   97
+       DB   61
+       DB   0
+L12:
        DB   10
+       DB   0
+L11:
+       DB   102
+       DB   61
        DB   0
 L0:

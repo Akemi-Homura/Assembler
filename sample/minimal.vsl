@@ -1,0 +1,5 @@
+VAR i
+FUNC  main(){
+    i := 0
+    PRINT i
+}

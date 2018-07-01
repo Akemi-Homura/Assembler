@@ -1,0 +1,5 @@
+VAR k
+FUNC main(){
+    k := 1
+    PRINT "k=",k,"\n"
+}

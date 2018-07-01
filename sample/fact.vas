@@ -4,92 +4,86 @@
        LDA  L1,R3                        \ Return address for main routine
 \        var i
 \        var j
-\        var k
-\        var e
-\        var eawra
-\        var etawtwet
-\        var etqwtwywy
 \        label L16
 L16:
 \        beginfunc
        STI  R3,4(R1)
-\        var i
-\        i := 0
-       LDR  R0,R6
 \        j := 1
-       LDA  1(R0),R7
+       LDA  1(R0),R6
+\        i := 0
+       LDR  R0,R7
 \        label L14
-       STI  R6,36(R1)
-       STI  R7,12(R15)
+       STI  R6,12(R15)
+       STI  R7,8(R15)
 L14:
 \        var T0
 \        T0 := 11 - i
-       LDI  36(R1),R6
+       LDI  8(R15),R6
        LDA  11(R0),R7
        SUB  R7,R6
 \        ifz T0 goto L15
-       STI  R6,40(R1)
+       STI  R6,16(R1)
        LDR  R6,R6
        BZE  L15
 \        arg L11
        LDA  L11,R8
-       STI  R8,52(R1)
+       STI  R8,28(R1)
 \        call L4
        LDA  L4,R2
-       STI  R1,44(R1)
-       LDA  44(R1),R1
+       STI  R1,20(R1)
+       LDA  20(R1),R1
        BAL  R2,R3
 \        arg i
-       LDI  36(R1),R6
-       STI  R6,52(R1)
+       LDI  8(R15),R6
+       STI  R6,28(R1)
 \        call L2
        LDA  L2,R2
-       STI  R1,44(R1)
-       LDA  44(R1),R1
+       STI  R1,20(R1)
+       LDA  20(R1),R1
        BAL  R2,R3
 \        arg L12
        LDA  L12,R6
-       STI  R6,52(R1)
+       STI  R6,28(R1)
 \        call L4
        LDA  L4,R2
-       STI  R1,44(R1)
-       LDA  44(R1),R1
+       STI  R1,20(R1)
+       LDA  20(R1),R1
        BAL  R2,R3
 \        var T1
 \        arg i
-       LDI  36(R1),R6
-       STI  R6,56(R1)
+       LDI  8(R15),R6
+       STI  R6,32(R1)
 \        T1 = call L19
        LDA  L19,R2
-       STI  R1,48(R1)
-       LDA  48(R1),R1
+       STI  R1,24(R1)
+       LDA  24(R1),R1
        BAL  R2,R3
 \        arg T1
        LDR  R4,R6
-       STI  R6,56(R1)
+       STI  R6,32(R1)
 \        call L2
-       STI  R6,44(R1)
+       STI  R6,20(R1)
        LDA  L2,R2
-       STI  R1,48(R1)
-       LDA  48(R1),R1
+       STI  R1,24(R1)
+       LDA  24(R1),R1
        BAL  R2,R3
 \        arg L13
        LDA  L13,R6
-       STI  R6,56(R1)
+       STI  R6,32(R1)
 \        call L4
        LDA  L4,R2
-       STI  R1,48(R1)
-       LDA  48(R1),R1
+       STI  R1,24(R1)
+       LDA  24(R1),R1
        BAL  R2,R3
 \        var T2
 \        T2 := i + 1
        LDA  1(R0),R6
-       LDI  36(R1),R7
+       LDI  8(R15),R7
        ADD  R7,R6
 \        i := T2
-       STI  R6,48(R1)
+       STI  R6,24(R1)
 \        goto L14
-       STI  R6,36(R1)
+       STI  R6,8(R15)
        BRA  L14
 \        label L15
 L15:
